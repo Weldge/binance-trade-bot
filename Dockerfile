@@ -17,4 +17,13 @@ WORKDIR /app
 COPY --from=builder /install /usr/local
 COPY . .
 
-CMD ["python", "-m", "binance_trade_bot"]
+# Add Tini
+ENV TINI_VERSION v0.19.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+RUN chmod +x /tini
+ENTRYPOINT ["/tini", "--"]
+
+COPY launcher /launcher.sh
+RUN chmod +x /launcher.sh
+
+CMD ["/launcher.sh"]

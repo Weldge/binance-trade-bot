@@ -1,0 +1,3 @@
+#!/bin/sh
+
+python -m binance_trade_bot.binance_websocket_reader & python -m binance_trade_bot
